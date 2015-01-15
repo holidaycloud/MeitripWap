@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <title><%=title%></title>
+  <!-- Path to Framework7 Library CSS-->
+  <link rel="stylesheet" href="./css/framework7.min.css">
+  <!-- Path to your custom app styles-->
+  <link rel="stylesheet" href="./css/ionicons.min.css">
+  <link rel="stylesheet" href="./css/my-app.css">
+
+
+</head>
+<body>
+<!-- Status bar overlay for fullscreen mode-->
+<div class="statusbar-overlay"></div>
+<!-- Panels overlay-->
+<div class="panel-overlay"></div>
+<!-- Left panel with reveal effect-->
+<div class="panel panel-right panel-cover">
+  <div class="content-block-title">
+    <img class="header" src="http://wx.qlogo.cn/mmopen/PiajxSqBRaEKUu4AbxGPWLaTW9kxcicS9guRnDqbl2Mu7jgLwtw4H1917xmNL4dFejVRahNicxkhAG8WNvicoTG2HA/0" alt="头像">
+    <p>13901785293</p>
+  </div>
+  <div class="list-block">
+    <div class="list-group">
+      <ul>
+        <li class="item-content close-panel item-link"><a href="/">首页</a></li>
+        <%domain.classify.forEach(function(c){%>
+        <li class="item-content close-panel item-link"><a href="/list?c=<%=c._id%>"><%=c.name%></a></li>
+        <%});%>
+        <li class="item-content close-panel item-link"><a href="/list?c=default">所有产品</a></li>
+        <li class="item-content close-panel item-link">新闻咨询</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Views-->
+<div class="views">
+  <!-- Your main view, should have "view-main" class-->
+  <div class="view view-main">
+    <!-- Top Navbar-->
+    <div class="navbar bg-yellow">
+      <div class="navbar-inner">
+        <div class="center sliding"><%=title%></div>
+        <div class="right">
+          <a href="#" class="link icon-only open-panel"> <i class="icon icon-bars color-gray"></i></a>
+        </div>
+      </div>
+    </div>
+    <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
+    <div class="pages navbar-through toolbar-through">
+      <!-- Page, data-page contains page name-->
+      <div data-page="index" class="page">
+        <!-- Scrollable page content-->
+        <div class="page-content">
+          <!-- slider start -->
+          <div class="slider-container slider-init" data-speed="400" data-pagination=".slider-pagination" data-loop="true">
+            <div class="slider-pagination"></div>
+            <div class="slider-wrapper">
+              <%recommend.forEach(function(r){%>
+              <div class="slider-slide"><img src="<%=r.images.length>0?r.images[0].url:''%>"></div>
+              <%})%>
+            </div>
+          </div>
+          <!-- slider end -->
+          <!-- hot list start -->
+          <div class="content-block-title content-header bg-yellow">
+            <h2>热门推荐</h2>
+          </div>
+          <div class="list-block media-list">
+            <ul>
+              <%hot.forEach(function(product){%>
+              <li>
+                <a href="/detail?p=<%=product._id%>" class="item-link item-content">
+                  <div class="item-media">
+                    <img src="<%=product.images.length>0?product.images[0].url:''%>" alt="product" />
+                  </div>
+                  <div class="item-inner">
+                    <div class="item-title"><%=product.name%></div>
+                    <div class="item-text"><%=product.introduction%></div>
+                    <div class="item-subtitle color-orange">￥<%=product.price%></div>
+                  </div>
+                </a>
+              </li>
+              <%});%>
+            </ul>
+          </div>
+          <!-- hot list end -->
+        </div>
+        </div>
+    </div>
+
+    <!-- Bottom Toolbar-->
+    <div class="toolbar tabbar">
+      <div class="toolbar-inner">
+        <a href="#tab1" class="tab-link active">
+          <i class="icon ion-ios-home-outline"></i>
+        </a>
+        <a href="#tab2" class="tab-link">
+          <i class="icon ion-ios-paper-outline"></i>
+        </a>
+        <a href="#tab3" class="tab-link">
+          <i class="icon ion-ios-search-strong"></i>
+        </a>
+        <a href="#tab4" class="tab-link">
+          <i class="icon ion-ios-person-outline"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="./js/framework7.min.js"></script>
+<!-- Path to your app js-->
+<script type="text/javascript" src="./js/my-app.js"></script>
+</body>
+</html>

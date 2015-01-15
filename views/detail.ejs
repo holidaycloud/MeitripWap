@@ -1,0 +1,32 @@
+<!-- We don't need full layout in this file because this page will be parsed with Ajax. It is just enough to put here .navbar and .page-->
+
+<!-- Top Navbar-->
+<div class="navbar bg-yellow">
+    <div class="navbar-inner">
+        <div class="left">
+            <a href="#" class="back link">
+                <i class="icon icon-back color-gray"></i>
+            </a>
+        </div>
+        <div class="center sliding"><%=title%></div>
+        <div class="right">
+            <a href="#" class="link icon-only open-panel"> <i class="icon icon-bars color-gray"></i></a>
+        </div>
+    </div>
+</div>
+
+<div class="pages navbar-through toolbar-through">
+    <div data-page="detail" class="page">
+        <div class="page-content">
+            <!-- slider start -->
+            <div class="slider-container slider-init" data-speed="400" data-pagination=".slider-pagination" data-loop="true">
+                <div class="slider-wrapper">
+                    <%for(var i=0;i<product.product.images.length;i++){img=product.product.images[i]%>
+                    <div class="slider-slide"><img src="<%=img.url%>"></div>
+                    <%}%>
+                </div>
+            </div>
+            <!-- slider end -->
+        </div>
+    </div>
+</div>
