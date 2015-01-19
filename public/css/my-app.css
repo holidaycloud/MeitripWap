@@ -73,8 +73,12 @@ body{
 }
 
 .toolbar.tabbar i{
-    font-size: 30px;}
+    font-size: 30px;
+}
 
+.navbar .right {
+    font-size: 25px;
+}
 .img-responsive {
     display: block;
     width: 100% \9;
