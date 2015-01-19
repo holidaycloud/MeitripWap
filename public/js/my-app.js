@@ -14,7 +14,6 @@ var mainView = myApp.addView('.view-main', {
         dynamicNavbar: true
 });
 wx.ready(function () {
-        wx.hideOptionMenu();
 
         $$('#scanner').on('click', function (e) {
                 wx.onMenuShareTimeline({
