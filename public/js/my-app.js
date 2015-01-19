@@ -21,9 +21,11 @@ wx.ready(function () {
                 imgUrl: 'http://holidaycloud.b0.upaiyun.com/582d29f881ea54667bc7a4a5d5b7b782.jpg', // 分享图标
                 success: function () {
                         // 用户确认分享后执行的回调函数
+                        console.log('success');
                 },
                 cancel: function () {
                         // 用户取消分享后执行的回调函数
+                        console.log('cancel');
                 }
         });
         $$('#scanner').on('click', function (e) {
