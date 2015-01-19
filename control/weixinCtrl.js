@@ -167,4 +167,15 @@ WeiXinCtrl.notify = function(data,partnerKey,fn){
     });
 };
 
+WeiXinCtrl.jsapiSign = function(ent,url,fn){
+    var uri = config.weixin.host+':'+config.weixin.port+'/weixin/jsapisign/'+ent;
+    request({
+        url:uri,
+        method:'POST',
+        timeout:5000,
+        form: {url:url}
+    }, function(err,response,body){
+        fn(err,body?JSON.parse(body):{});
+    });
+};
 module.exports = WeiXinCtrl;

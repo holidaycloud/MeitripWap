@@ -3,13 +3,15 @@
   var PageAction;
 
   PageAction = (function() {
-    var ProductCtrl, async;
+    var ProductCtrl, WeixinCtrl, async;
 
     function PageAction() {}
 
     async = require("async");
 
     ProductCtrl = require("./../control/productCtrl");
+
+    WeixinCtrl = require("./../control/weixinCtrl");
 
     PageAction.home = function(req, res) {
       var ent;
@@ -24,19 +26,28 @@
           return ProductCtrl.recommendList(ent, function(err, result) {
             return cb(err, result);
           });
+        },
+        getWeixinApiSign: function(cb) {
+          var url;
+          url = "http://" + req.hostname + req.url;
+          console.log(url);
+          return WeixinCtrl.jsapiSign(ent, url, function(err, result) {
+            return cb(err, result);
+          });
         }
       }, function(err, results) {
+        console.log(err, results.getWeixinApiSign);
         return res.render("index", {
           title: res.locals.domain.title,
           hot: results.getHot.data,
-          recommend: results.getRecommend.data
+          recommend: results.getRecommend.data,
+          weixin: results.getWeixinApiSign.data != null ? results.getWeixinApiSign.data : {}
         });
       });
     };
 
     PageAction.list = function(req, res) {
       var ent, id, page, pageSize;
-      console.log(req.query);
       id = req.query.c;
       page = req.query.page || 0;
       pageSize = req.query.pageSize || 0;

@@ -19,6 +19,7 @@
     "underscore": "*",
     "compression":"*",
     "cookie-session": "*",
-    "connect-flash":"*"
+    "connect-flash":"*",
+    "xml2js":"*"
   }
 }
