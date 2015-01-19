@@ -19,8 +19,11 @@ wx.ready(function () {
                         desc: '扫一扫',
                         needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
                         scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-                        success: function (res) {
-                                mainView.router.loadPage("detail");
+                        success: function (data) {
+                                alert(data);
+                                var res = JSON.parse(data);
+                                var scanResult = res.resultStr.scan_code.scan_result;
+                                mainView.router.loadPage("/product?id="+scanResult.split(",")[1]);
                         }
                 });
         });
