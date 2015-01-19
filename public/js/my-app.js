@@ -14,6 +14,18 @@ var mainView = myApp.addView('.view-main', {
         dynamicNavbar: true
 });
 wx.ready(function () {
+        wx.hideOptionMenu();
+        wx.onMenuShareTimeline({
+                title: 'test', // 分享标题
+                link: 'http://test.meitrip.net/#!/detail?p=54a36ddbd62713a35a8e727e', // 分享链接
+                imgUrl: 'http://holidaycloud.b0.upaiyun.com/582d29f881ea54667bc7a4a5d5b7b782.jpg', // 分享图标
+                success: function () {
+                        // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                        // 用户取消分享后执行的回调函数
+                }
+        });
         $$('#scanner').on('click', function (e) {
                 wx.scanQRCode({
                         desc: '扫一扫',
