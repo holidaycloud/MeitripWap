@@ -13,6 +13,7 @@ var mainView = myApp.addView('.view-main', {
         // Because we want to use dynamic navbar, we need to enable it for this view:
         dynamicNavbar: true
 });
+mainView.router.loadPage("detail?p=54a36ddbd62713a35a8e727e");
 wx.ready(function () {
         $$('#scanner').on('click', function (e) {
                 wx.scanQRCode({
@@ -23,7 +24,7 @@ wx.ready(function () {
                                 alert(JSON.stringify(res));
                                 var scanResult = res.resultStr.scan_code.scan_result;
                                 alert(scanResult);
-                                mainView.router.loadPage("/product?id="+scanResult.split(",")[1]);
+                                mainView.router.loadPage("detail?p="+scanResult.split(",")[1]);
                         }
                 });
         });
