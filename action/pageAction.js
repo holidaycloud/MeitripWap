@@ -36,7 +36,6 @@
           });
         }
       }, function(err, results) {
-        console.log(err, results.getWeixinApiSign);
         return res.render("index", {
           title: res.locals.domain.title,
           hot: results.getHot.data,

@@ -17,7 +17,6 @@ class PageAction
         WeixinCtrl.jsapiSign ent,url,(err,result) ->
           cb err,result
     },(err,results) ->
-      console.log err,results.getWeixinApiSign
       res.render "index",{title:res.locals.domain.title,hot:results.getHot.data,recommend:results.getRecommend.data,weixin:if results.getWeixinApiSign.data? then results.getWeixinApiSign.data else {}}
 
   @list:(req,res) ->
