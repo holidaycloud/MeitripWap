@@ -13,11 +13,13 @@ class AppAction
         next()
 
   @weixinRedirect:(req,res,next) ->
+    console.log "----------进入微信跳转逻辑----------"
     ent = res.locals.domain.ent
     isWeixin = req.headers['user-agent'].indexOf('MicroMessenger')>-1
     isLogined = req.session.user isnt null;
     code = req.query.code
     if isWeixin and not isLogined and not code
+      console.log "----------需要跳转----------",isWeixin,isLogined,code
       async.auto {
         getConf:(cb) ->
           WeiXinCtrl.config ent,(err,result) ->
@@ -37,14 +39,17 @@ class AppAction
           url = results.createUrl
           if url? then res.redirect(url) else next()
     else
+      console.log "----------不需要跳转----------"
       next()
 
   @weixinLogin:(req,res,next) ->
+    console.log "----------进入微信自动登录逻辑----------"
     ent = res.locals.domain.ent
     isWeixin = req.headers['user-agent'].indexOf('MicroMessenger')>-1
     isLogined = req.session.user isnt null;
     code = req.query.code
     if isWeixin and not isLogined and code?
+      console.log "----------需要登录----------",isWeixin,isLogined,code
       async.auto {
         getToken:(cb) ->
           WeiXinCtrl.codeAccessToken ent,code,"",(err,result) ->
@@ -58,6 +63,7 @@ class AppAction
         console.log err,results
         next()
     else
+      console.log "----------不需要跳转----------"
       next()
 
 module.exports = AppAction

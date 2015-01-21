@@ -28,11 +28,13 @@
 
     AppAction.weixinRedirect = function(req, res, next) {
       var code, ent, isLogined, isWeixin;
+      console.log("----------进入微信跳转逻辑----------");
       ent = res.locals.domain.ent;
       isWeixin = req.headers['user-agent'].indexOf('MicroMessenger') > -1;
       isLogined = req.session.user !== null;
       code = req.query.code;
       if (isWeixin && !isLogined && !code) {
+        console.log("----------需要跳转----------", isWeixin, isLogined, code);
         return async.auto({
           getConf: function(cb) {
             return WeiXinCtrl.config(ent, function(err, result) {
@@ -65,17 +67,20 @@
           }
         });
       } else {
+        console.log("----------不需要跳转----------");
         return next();
       }
     };
 
     AppAction.weixinLogin = function(req, res, next) {
       var code, ent, isLogined, isWeixin;
+      console.log("----------进入微信自动登录逻辑----------");
       ent = res.locals.domain.ent;
       isWeixin = req.headers['user-agent'].indexOf('MicroMessenger') > -1;
       isLogined = req.session.user !== null;
       code = req.query.code;
       if (isWeixin && !isLogined && (code != null)) {
+        console.log("----------需要登录----------", isWeixin, isLogined, code);
         return async.auto({
           getToken: function(cb) {
             return WeiXinCtrl.codeAccessToken(ent, code, "", function(err, result) {
@@ -96,6 +101,7 @@
           return next();
         });
       } else {
+        console.log("----------不需要跳转----------");
         return next();
       }
     };
