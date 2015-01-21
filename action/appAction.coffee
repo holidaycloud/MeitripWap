@@ -18,8 +18,9 @@ class AppAction
     isWeixin = req.headers['user-agent'].indexOf('MicroMessenger')>-1
     isLogined = req.session.user isnt null;
     isCode = req.query.code?
+    console.log isWeixin,isLogined,isCode,isWeixin and not isLogined and not isCode
     if isWeixin and not isLogined and not isCode
-      console.log "----------需要跳转----------",isWeixin,isLogined,isCode
+      console.log "----------需要跳转----------"
       async.auto {
         getConf:(cb) ->
           WeiXinCtrl.config ent,(err,result) ->
@@ -39,7 +40,7 @@ class AppAction
           url = results.createUrl
           if url? then res.redirect(url) else next()
     else
-      console.log "----------不需要跳转----------",isWeixin,isLogined,isCode
+      console.log "----------不需要跳转----------"
       next()
 
   @weixinLogin:(req,res,next) ->
@@ -48,8 +49,9 @@ class AppAction
     isWeixin = req.headers['user-agent'].indexOf('MicroMessenger')>-1
     isLogined = req.session.user isnt null;
     isCode = req.query.code?
+    console.log isWeixin,isLogined,isCode,isWeixin and not isLogined and isCode
     if isWeixin and not isLogined and isCode
-      console.log "----------需要登录----------",isWeixin,isLogined,isCode
+      console.log "----------需要登录----------"
       async.auto {
         getToken:(cb) ->
           WeiXinCtrl.codeAccessToken ent,req.query.code,"",(err,result) ->
@@ -63,7 +65,7 @@ class AppAction
         console.log err,results
         next()
     else
-      console.log "----------不需要登录----------",isWeixin,isLogined,isCode
+      console.log "----------不需要登录----------"
       next()
 
 module.exports = AppAction

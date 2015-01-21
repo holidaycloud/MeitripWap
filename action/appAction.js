@@ -33,8 +33,9 @@
       isWeixin = req.headers['user-agent'].indexOf('MicroMessenger') > -1;
       isLogined = req.session.user !== null;
       isCode = req.query.code != null;
+      console.log(isWeixin, isLogined, isCode, isWeixin && !isLogined && !isCode);
       if (isWeixin && !isLogined && !isCode) {
-        console.log("----------需要跳转----------", isWeixin, isLogined, isCode);
+        console.log("----------需要跳转----------");
         return async.auto({
           getConf: function(cb) {
             return WeiXinCtrl.config(ent, function(err, result) {
@@ -67,7 +68,7 @@
           }
         });
       } else {
-        console.log("----------不需要跳转----------", isWeixin, isLogined, isCode);
+        console.log("----------不需要跳转----------");
         return next();
       }
     };
@@ -79,8 +80,9 @@
       isWeixin = req.headers['user-agent'].indexOf('MicroMessenger') > -1;
       isLogined = req.session.user !== null;
       isCode = req.query.code != null;
+      console.log(isWeixin, isLogined, isCode, isWeixin && !isLogined && isCode);
       if (isWeixin && !isLogined && isCode) {
-        console.log("----------需要登录----------", isWeixin, isLogined, isCode);
+        console.log("----------需要登录----------");
         return async.auto({
           getToken: function(cb) {
             return WeiXinCtrl.codeAccessToken(ent, req.query.code, "", function(err, result) {
@@ -101,7 +103,7 @@
           return next();
         });
       } else {
-        console.log("----------不需要登录----------", isWeixin, isLogined, isCode);
+        console.log("----------不需要登录----------");
         return next();
       }
     };
