@@ -17,9 +17,8 @@ var mainView = myApp.addView('.view-main', {
 $$(document).on('pageInit', function (e) {
 
 });
-
-$$('.scanner').on('click', function (e) {
-        console.log(e);
+$$(document).on('click', '.scanner', function (e) {
+        console.log('link clicked');
 });
 
 //wx.ready(function () {
