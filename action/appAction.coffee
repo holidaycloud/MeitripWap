@@ -39,7 +39,7 @@ class AppAction
           url = results.createUrl
           if url? then res.redirect(url) else next()
     else
-      console.log "----------不需要跳转----------"
+      console.log "----------不需要跳转----------",isWeixin,isLogined,code
       next()
 
   @weixinLogin:(req,res,next) ->
@@ -63,7 +63,7 @@ class AppAction
         console.log err,results
         next()
     else
-      console.log "----------不需要跳转----------"
+      console.log "----------不需要登录----------",isWeixin,isLogined,code
       next()
 
 module.exports = AppAction

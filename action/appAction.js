@@ -67,7 +67,7 @@
           }
         });
       } else {
-        console.log("----------不需要跳转----------");
+        console.log("----------不需要跳转----------", isWeixin, isLogined, code);
         return next();
       }
     };
@@ -101,7 +101,7 @@
           return next();
         });
       } else {
-        console.log("----------不需要跳转----------");
+        console.log("----------不需要登录----------", isWeixin, isLogined, code);
         return next();
       }
     };
