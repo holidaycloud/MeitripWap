@@ -17,28 +17,25 @@ var mainView = myApp.addView('.view-main', {
 $$(document).on('pageInit', function (e) {
 
 });
-$$(document).on('click', '.scanner', function (e) {
-        console.log('link clicked');
+
+wx.ready(function () {
+        $$(document).on('click', '.scanner', function (e) {
+                alert('aaa');
+                wx.scanQRCode({
+                        desc: '扫一扫',
+                        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                        scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                        success: function (res) {
+                                var result = JSON.parse(res.resultStr);
+                                var scanResult = result.scan_code.scan_result;
+                                mainView.router.loadPage("detail?p="+scanResult);
+                        }
+                });
+        });
 });
 
-//wx.ready(function () {
-//        $$('.scanner').on('click', function (e) {
-//                alert('aaa');
-//                wx.scanQRCode({
-//                        desc: '扫一扫',
-//                        needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-//                        scanType: ["qrCode","barCode"], // 可以指定扫二维码还是一维码，默认二者都有
-//                        success: function (res) {
-//                                var result = JSON.parse(res.resultStr);
-//                                var scanResult = result.scan_code.scan_result;
-//                                mainView.router.loadPage("detail?p="+scanResult);
-//                        }
-//                });
-//        });
-//});
-//
-//wx.error(function (res) {
-//        alert(res.errMsg);
-//});
+wx.error(function (res) {
+        alert(res.errMsg);
+});
 
 
