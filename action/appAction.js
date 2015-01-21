@@ -92,7 +92,7 @@
           getUserinfo: [
             "getToken", function(cb, results) {
               var tokenObj;
-              tokenObj = results.getToken;
+              tokenObj = results.getToken.data;
               return WeiXinCtrl.userinfo(ent, tokenObj.openid, tokenObj.access_token, function(err, result) {
                 return cb(err, result);
               });

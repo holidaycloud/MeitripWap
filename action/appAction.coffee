@@ -57,7 +57,7 @@ class AppAction
           WeiXinCtrl.codeAccessToken ent,req.query.code,"",(err,result) ->
             cb err,result
         getUserinfo:["getToken",(cb,results) ->
-          tokenObj = results.getToken
+          tokenObj = results.getToken.data
           WeiXinCtrl.userinfo ent,tokenObj.openid,tokenObj.access_token,(err,result) ->
             cb err,result
         ]
