@@ -20,7 +20,6 @@ $$(document).on('pageInit', function (e) {
 
 wx.ready(function () {
         $$(document).on('click', '.scanner', function (e) {
-                alert('aaa');
                 wx.scanQRCode({
                         desc: '扫一扫',
                         needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
