@@ -31,10 +31,10 @@
       console.log("----------进入微信跳转逻辑----------");
       ent = res.locals.domain.ent;
       isWeixin = req.headers['user-agent'].indexOf('MicroMessenger') > -1;
-      isLogined = req.session.user !== null;
+      isLogined = req.session.user != null;
       isCode = req.query.code != null;
       console.log(isWeixin, isLogined, isCode, isWeixin && !isLogined && !isCode);
-      if (isWeixin && !isLogined && !isCode) {
+      if (isWeixin && (!isLogined) && (!isCode)) {
         console.log("----------需要跳转----------");
         return async.auto({
           getConf: function(cb) {
@@ -78,7 +78,7 @@
       console.log("----------进入微信自动登录逻辑----------");
       ent = res.locals.domain.ent;
       isWeixin = req.headers['user-agent'].indexOf('MicroMessenger') > -1;
-      isLogined = req.session.user !== null;
+      isLogined = req.session.user != null;
       isCode = req.query.code != null;
       console.log(isWeixin, isLogined, isCode, isWeixin && !isLogined && isCode);
       if (isWeixin && !isLogined && isCode) {

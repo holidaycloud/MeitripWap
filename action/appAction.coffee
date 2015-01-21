@@ -16,10 +16,10 @@ class AppAction
     console.log "----------进入微信跳转逻辑----------"
     ent = res.locals.domain.ent
     isWeixin = req.headers['user-agent'].indexOf('MicroMessenger')>-1
-    isLogined = req.session.user isnt null;
+    isLogined = req.session.user?;
     isCode = req.query.code?
     console.log isWeixin,isLogined,isCode,isWeixin and not isLogined and not isCode
-    if isWeixin and not isLogined and not isCode
+    if isWeixin and (not isLogined) and (not isCode)
       console.log "----------需要跳转----------"
       async.auto {
         getConf:(cb) ->
@@ -47,7 +47,7 @@ class AppAction
     console.log "----------进入微信自动登录逻辑----------"
     ent = res.locals.domain.ent
     isWeixin = req.headers['user-agent'].indexOf('MicroMessenger')>-1
-    isLogined = req.session.user isnt null;
+    isLogined = req.session.user?;
     isCode = req.query.code?
     console.log isWeixin,isLogined,isCode,isWeixin and not isLogined and isCode
     if isWeixin and not isLogined and isCode
