@@ -98,7 +98,7 @@
     <!-- Pages, because we need fixed-through navbar and toolbar, it has additional appropriate classes-->
     <div class="pages navbar-through">
       <!-- Page, data-page contains page name-->
-      <div data-page="index" class="page">
+      <div data-page="index" class="page toolbar-fixed">
         <!-- Scrollable page content-->
         <div class="page-content">
           <!-- slider start -->
@@ -135,26 +135,28 @@
           </div>
           <!-- hot list end -->
         </div>
+        <!-- Bottom Toolbar-->
+        <div class="toolbar tabbar">
+          <div class="toolbar-inner">
+            <a href="#tab1" class="tab-link active">
+              <i class="icon ion-ios-home-outline"></i>
+            </a>
+            <a href="#tab2" class="tab-link">
+              <i class="icon ion-ios-paper-outline"></i>
+            </a>
+            <a href="#tab3" class="tab-link">
+              <i class="icon ion-ios-search-strong"></i>
+            </a>
+            <a href="#tab4" class="tab-link">
+              <i class="icon ion-ios-person-outline"></i>
+            </a>
+          </div>
+        </div>
+        <!-- Bottom Toolbar End-->
         </div>
     </div>
 
-    <!-- Bottom Toolbar-->
-    <div class="toolbar tabbar">
-      <div class="toolbar-inner">
-        <a href="#tab1" class="tab-link active">
-          <i class="icon ion-ios-home-outline"></i>
-        </a>
-        <a href="#tab2" class="tab-link">
-          <i class="icon ion-ios-paper-outline"></i>
-        </a>
-        <a href="#tab3" class="tab-link">
-          <i class="icon ion-ios-search-strong"></i>
-        </a>
-        <a href="#tab4" class="tab-link">
-          <i class="icon ion-ios-person-outline"></i>
-        </a>
-      </div>
-    </div>
+
   </div>
 </div>
 <!-- Path to Framework7 Library JS-->
