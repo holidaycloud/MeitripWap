@@ -26,6 +26,17 @@ WeiXinCtrl.config = function(ent,fn){
         }
     });
 };
+
+WeiXinCtrl.userinfo = function(ent,openid,accesstoken,fn){
+    var url = config.weixin.host+':'+config.weixin.port+'/weixin/userInfoAccessToken/'+ent+'?openid='+openid+'&accesstoken='+accesstoken;
+    request({
+        url:url,
+        timeout:3000
+    },function(err,response,body){
+        fn(err,body?JSON.parse(body):{});
+    });
+};
+
 WeiXinCtrl.codeAccessToken = function(ent,code,state,fn){
     var url = config.weixin.host+':'+config.weixin.port+'/weixin/codeAccesstoken/'+ent+'?code='+code;
     request({

@@ -3,11 +3,15 @@
   var AppAction;
 
   AppAction = (function() {
-    var DomainCtrl;
+    var DomainCtrl, WeiXinCtrl, async;
 
     function AppAction() {}
 
     DomainCtrl = require("./../control/domainCtrl");
+
+    WeiXinCtrl = require("./../control/weixinCtrl");
+
+    async = require("async");
 
     AppAction.getDomain = function(req, res, next) {
       var domain;
@@ -20,6 +24,80 @@
           return next();
         }
       });
+    };
+
+    AppAction.weixinRedirect = function(req, res, next) {
+      var code, ent, isLogined, isWeixin;
+      ent = res.locals.domain.ent;
+      isWeixin = req.headers['user-agent'].indexOf('MicroMessenger') > -1;
+      isLogined = req.session.user !== null;
+      code = req.query.code;
+      if (isWeixin && !isLogined && !code) {
+        return async.auto({
+          getConf: function(cb) {
+            return WeiXinCtrl.config(ent, function(err, result) {
+              return cb(err, result);
+            });
+          },
+          createUrl: [
+            "getConf", function(cb, results) {
+              var conf, url;
+              conf = results.getConf;
+              url = encodeURIComponent("http://" + req.hostname + req.url);
+              if (conf != null) {
+                return cb(null, "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + conf.appID + "&redirect_uri=" + url + "&response_type=code&scope=snsapi_userinfo&state=weixinLogin#wechat_redirect");
+              } else {
+                return cb(null, null);
+              }
+            }
+          ]
+        }, function(err, results) {
+          var url;
+          if (err != null) {
+            return next();
+          } else {
+            url = results.createUrl;
+            if (url != null) {
+              return res.redirect(url);
+            } else {
+              return next();
+            }
+          }
+        });
+      } else {
+        return next();
+      }
+    };
+
+    AppAction.weixinLogin = function(req, res, next) {
+      var code, ent, isLogined, isWeixin;
+      ent = res.locals.domain.ent;
+      isWeixin = req.headers['user-agent'].indexOf('MicroMessenger') > -1;
+      isLogined = req.session.user !== null;
+      code = req.query.code;
+      if (isWeixin && !isLogined && (code != null)) {
+        return async.auto({
+          getToken: function(cb) {
+            return WeiXinCtrl.codeAccessToken(ent, code, "", function(err, result) {
+              return cb(err, result);
+            });
+          },
+          getUserinfo: [
+            "getToken", function(cb, results) {
+              var tokenObj;
+              tokenObj = results.getToken;
+              return WeiXinCtrl.userinfo(ent, tokenObj.openid, tokenObj.access_token, function(err, result) {
+                return cb(err, result);
+              });
+            }
+          ]
+        }, function(err, results) {
+          console.log(err, results);
+          return next();
+        });
+      } else {
+        return next();
+      }
     };
 
     return AppAction;

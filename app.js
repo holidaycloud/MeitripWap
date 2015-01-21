@@ -48,6 +48,8 @@ app.use(flash());
 
 //获取网站配置
 app.use(AppAction.getDomain);
+app.use(AppAction.weixinRedirect);
+app.use(AppAction.weixinLogin);
 
 app.use('/', routes);
 app.use('/users', users);
